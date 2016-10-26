@@ -285,11 +285,118 @@ ElementBot Realm Helps 🔻
 〰〰〰〰〰〰〰〰〰〰〰
 And Other.. 📍]],
 	help_text_super =[[
-SuperGroup Helps List For ElementBot📍
-〰〰〰〰〰〰〰〰〰〰
-/Help> -> Show SuperGroups Help 📍
-/HelpP -> Show Plugins Help
-〰〰〰〰〰〰〰〰〰〰
+Commands list :
+
+!kick [username|id]
+🔵 اخراج شخص از گروه 🔴
+〰〰〰〰〰〰〰〰
+!ban [ username|id]
+🔵 مسدود کردن شخص از گروه 🔴
+〰〰〰〰〰〰〰〰
+!unban [id]
+🔵 خارج کردن فرد از لیست مسدودها 🔴
+〰〰〰〰〰〰〰〰
+!who
+🔵 لیست اعضای گروه 🔴
+〰〰〰〰〰〰〰〰
+!modlist
+🔵 لیست مدیران 🔴
+〰〰〰〰〰〰〰〰
+!promote [username]
+🔵 افزودن شخص به لیست مدیران 🔴
+〰〰〰〰〰〰〰〰
+!demote [username]
+🔵 خارج کردن شخص از لیست مدیران 🔴
+〰〰〰〰〰〰〰〰
+!kickme
+🔵 اخراج خود از گروه 🔴
+〰〰〰〰〰〰〰〰
+!about
+🔵 دریافت متن گروه 🔴
+〰〰〰〰〰〰〰〰
+!setphoto
+🔵 عوض کردن عکس گروه 🔴
+〰〰〰〰〰〰〰〰
+!setname [name]
+🔵 عوض کردن اسم گروه 🔴
+〰〰〰〰〰〰〰〰
+!rules
+🔵 دریافت قوانین گروه 🔴
+〰〰〰〰〰〰〰〰
+!id
+🔵 دریافت آیدی گروه یا شخص 🔴
+〰〰〰〰〰〰〰〰
+!help
+🔵 دریافت لیست دستورات 🔴
+〰〰〰〰〰〰〰〰
+!lock [links|flood|spam|Arabic|member|rtl|sticker|contacts|strict]
+🔵 قفل کردن تنظیمات 🔴
+〰〰〰〰〰〰〰〰
+!unlock [links|flood|spam|Arabic|member|rtl|sticker|contacts|strict]
+🔵 بازکردن قفل تنظیمات گروه 🔴
+〰〰〰〰〰〰〰〰
+!mute [all|audio|gifs|photo|video]
+🔵 بیصدا کردن فرمت ها 🔴
+〰〰〰〰〰〰〰〰
+!unmute [all|audio|gifs|photo|video]
+🔵 از حالت بیصدا درآوردن فرمت ها 🔴
+〰〰〰〰〰〰〰〰
+!set rules <text>
+🔵 تنظیم قوانین برای گروه 🔴
+〰〰〰〰〰〰〰〰
+!set about <text>
+🔵 تنظیم متن درباره ی گروه 🔴
+〰〰〰〰〰〰〰〰
+!settings
+🔵 مشاهده تنظیمات گروه 🔴
+〰〰〰〰〰〰〰〰
+!muteslist
+🔵 لیست فرمت های بیصدا 🔴
+〰〰〰〰〰〰〰〰
+!muteuser [username]
+🔵 بیصدا کردن شخص در گروه 🔴
+〰〰〰〰〰〰〰〰
+!mutelist
+🔵 لیست افراد بیصدا 🔴
+〰〰〰〰〰〰〰〰
+!newlink
+🔵 ساختن لینک جدید 🔴
+〰〰〰〰〰〰〰〰
+!link
+🔵 دریافت لینک گروه 🔴
+〰〰〰〰〰〰〰〰
+!owner
+🔵 مشاهده آیدی صاحب گروه 🔴
+〰〰〰〰〰〰〰〰
+!setowner [id]
+🔵 یک شخص را به عنوان صاحب گروه انتخاب کردن 🔴
+〰〰〰〰〰〰〰〰
+!setflood [value]
+🔵 تنظیم حساسیت اسپم 🔴
+〰〰〰〰〰〰〰〰
+!stats
+🔵 مشاهده آمار گروه 🔴
+〰〰〰〰〰〰〰〰
+!save [value] <text>
+🔵 افزودن دستور و پاسخ 🔴
+〰〰〰〰〰〰〰〰
+!get [value]
+🔵 دریافت پاسخ دستور 🔴
+〰〰〰〰〰〰〰〰
+!clean [modlist|rules|about]
+🔵 پاک کردن [مدیران ,قوانین ,متن گروه] 🔴
+〰〰〰〰〰〰〰〰
+!res [username]
+🔵 دریافت آیدی افراد 🔴
+💥 !res @username 💥
+〰〰〰〰〰〰〰〰
+!log
+🔵 لیست ورود اعضا 🔴
+〰〰〰〰〰〰〰〰
+!banlist
+🔵 لیست مسدود شده ها 🔴
+〰〰〰〰〰〰〰〰
+💥 شما میتوانید از / و ! و # استفاده کنید 💥
 @hacker20102 📌
 @TeleBlasterTeam 📌
 ]],
