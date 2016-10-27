@@ -11,7 +11,7 @@
 	end
 	local text = "Group Link For : \nلینک گروه برای : "..msg.to.id.."\n"..group_link
 	send_large_msg('user#id'..msg.from.id, text, ok_cb, false)
-	return "Element Send Your Link!"
+	return "Ѧgent Send Your Link!"
 	end
 	
 	return {
