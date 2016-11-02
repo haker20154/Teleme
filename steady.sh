@@ -55,7 +55,7 @@
 #--                                              --                   
 #--------------------------------------------------
 #--                                              --
-#--       @mrr619                     --
+#--       @Boy_  virtual                         --
 #--                                              --
 #--                                              --
 #--------------------------------------------------
@@ -96,7 +96,7 @@ cat << EOF
  
 EOF
 echo -e "                \e[100m                Steady script           \e[00;37;40m"
-echo -e "               \e[01;34m                    @antispamandhack                 \e[00;37;40m"
+echo -e "               \e[01;34m                    @TeleBlasterTeam                 \e[00;37;40m"
 echo ""
 cat << EOF
  $bld$f1▄ ▀▄   ▄▀ ▄   $f2 ▄▄▄████▄▄▄    $f3  ▄██▄     $f4▄ ▀▄   ▄▀ ▄   $f5 ▄▄▄████▄▄▄    $f6  ▄██▄  $rst
@@ -122,11 +122,11 @@ sleep 0.5
 
 
 echo ""
-echo -e "\033[38;5;208m @antispamandhack    :)      @antispamandhack \033[0;00m"
-echo -e "\033[38;5;208m @mrr619    :)      @antispamandhack \033[0;00m"
-echo -e "\033[38;5;208m @antispamandhack    :)      @antispamandhack \033[0;00m"
-echo -e "\033[38;5;208m @mrr619    :)      @antispamandhack \033[0;00m"
-echo -e "\033[38;5;208m @mrr619    :)      @antispamandhack \033[0;00m"
+echo -e "\033[38;5;208m  @TeleBlasterTeam   :)      @TeleBlasterTeam  \033[0;00m"
+echo -e "\033[38;5;208m  @boy_virtual  :)           @TeleBlasterTeam \033[0;00m"
+echo -e "\033[38;5;208m  @TeleBlasterTeam  :)      @TeleBlasterTeam  \033[0;00m"
+echo -e "\033[38;5;208m @boy_virtual   :)      @TeleBlasterTeam \033[0;00m"
+echo -e "\033[38;5;208m @boy_virtual   :)      @TeleBlasterTeam  \033[0;00m"
 
 sleep 1.5
 echo -e "$bld$f4 CHECKING PROCESSES...$rst"
@@ -248,7 +248,7 @@ cat << EOF
  
 EOF
 echo -e "                \e[100m                Steady script           \e[00;37;40m"
-echo -e "               \e[01;34m                    @mrr619                 \e[00;37;40m"
+echo -e "               \e[01;34m                   @boy_virtual               \e[00;37;40m"
 echo ""
 cat << EOF
  $bld$f1▄ ▀▄   ▄▀ ▄   $f2 ▄▄▄████▄▄▄    $f3  ▄██▄     $f4▄ ▀▄   ▄▀ ▄   $f5 ▄▄▄████▄▄▄    $f6  ▄██▄  $rst
@@ -274,11 +274,11 @@ sleep 0.5
 
 
 echo ""
-echo -e "\033[38;5;208m @mrr619    :)      @antispamandhack \033[0;00m"
-echo -e "\033[38;5;208m @mrr619    :)      @antispamandhack \033[0;00m"
-echo -e "\033[38;5;208m @mrr619    :)      @antispamandhack \033[0;00m"
-echo -e "\033[38;5;208m @mrr619    :)      @antispamandhack \033[0;00m"
-echo -e "\033[38;5;208m @mrr619    :)      @antispamandhack \033[0;00m"
+echo -e "\033[38;5;208m @boy_virtual   :)      @TeleBlasterTeam\033[0;00m"
+echo -e "\033[38;5;208m @boy_virtual   :)      @TeleBlasterTeam\033[0;00m"
+echo -e "\033[38;5;208m @boy_virtual    :)      @TeleBlasterTeam\033[0;00m"
+echo -e "\033[38;5;208m @boy_virtual   :)      @TeleBlasterTeam\033[0;00m"
+echo -e "\033[38;5;208m @boy_virtual    :)      @TeleBlasterTeam \033[0;00m"
 # Starting preliminar setup
 sleep 1.5
 echo -e "$bld$f4 CHECKING PROCESSES...$rst"
