@@ -1,0 +1,527 @@
+local function callback_reply(extra, success, result)
+	--icon & rank ------------------------------------------------------------------------------------------------
+	userrank = "Member"
+	if tonumber(result.from.id) == 211752618 then
+		userrank = "Master â­گâ­گâ­گâ­گ"
+		send_document(org_chat_id,"./icons/7.webp", ok_cb, false)
+	elseif is_sudo(result) then
+		userrank = "Sudo â­گâ­گâ­گâ­گâ­گ"
+		send_document(org_chat_id,"./icons/8.webp", ok_cb, false)
+	elseif is_admin(result) then
+		userrank = "Admin â­گâ­گâ­گ"
+		send_document(org_chat_id,"./icons/3.webp", ok_cb, false)
+	elseif tonumber(result.from.id) == tonumber(gp_leader) then
+		userrank = "Leader â­گâ­گ"
+		send_document(org_chat_id,"./icons/6.webp", ok_cb, false)
+	elseif is_momod(result) then
+		userrank = "Moderator â­گ"
+		send_document(org_chat_id,"./icons/4.webp", ok_cb, false)
+	elseif tonumber(result.from.id) == tonumber(our_id) then
+		userrank = "Umbrella â­گâ­گâ­گâ­گâ­گâ­گ"
+		send_document(org_chat_id,"./icons/9.webp", ok_cb, false)
+	elseif result.from.username then
+		if string.sub(result.from.username:lower(), -3) == "bot" then
+			userrank = "API Bot"
+			send_document(org_chat_id,"./icons/5.webp", ok_cb, false)
+		end
+	end
+	--custom rank ------------------------------------------------------------------------------------------------
+	local file = io.open("./info/"..result.from.id..".txt", "r")
+	if file ~= nil then
+		usertype = file:read("*all")
+	else
+		usertype = "-----"
+	end
+	--cont ------------------------------------------------------------------------------------------------
+	local user_info = {}
+	local uhash = 'user:'..result.from.id
+	local user = redis:hgetall(uhash)
+	local um_hash = 'msgs:'..result.from.id..':'..result.to.id
+	user_info.msgs = tonumber(redis:get(um_hash) or 0)
+	--msg type ------------------------------------------------------------------------------------------------
+	if result.media then
+		if result.media.type == "document" then
+			if result.media.text then
+				msg_type = "ط§ط³طھغŒع©ط±"
+			else
+				msg_type = "ط³ط§ظٹط± ظپط§ظٹظ„ظ‡ط§"
+			end
+		elseif result.media.type == "photo" then
+			msg_type = "ظپط§ظٹظ„ ط¹ع©ط³"
+		elseif result.media.type == "video" then
+			msg_type = "ظپط§ظٹظ„ ظˆظٹط¯ط¦ظˆظٹظٹ"
+		elseif result.media.type == "audio" then
+			msg_type = "ظپط§ظٹظ„ طµظˆطھظٹ"
+		elseif result.media.type == "geo" then
+			msg_type = "ظ…ظˆظ‚ط¹ظٹطھ ظ…ع©ط§ظ†ظٹ"
+		elseif result.media.type == "contact" then
+			msg_type = "ط´ظ…ط§ط±ظ‡ طھظ„ظپظ†"
+		elseif result.media.type == "file" then
+			msg_type = "ظپط§ظٹظ„"
+		elseif result.media.type == "webpage" then
+			msg_type = "ظ¾غŒط´ ظ†ظ…ط§غŒط´ ط³ط§غŒطھ"
+		elseif result.media.type == "unsupported" then
+			msg_type = "ظپط§ظٹظ„ ظ…طھط­ط±ع©"
+		else
+			msg_type = "ظ†ط§ط´ظ†ط§ط®طھظ‡"
+		end
+	elseif result.text then
+		if string.match(result.text, '^%d+$') then
+			msg_type = "ط¹ط¯ط¯"
+		elseif string.match(result.text, '%d+') then
+			msg_type = "ط´ط§ظ…ظ„ ط¹ط¯ط¯ ظˆ ط­ط±ظˆظپ"
+		elseif string.match(result.text, '^@') then
+			msg_type = "غŒظˆط²ط±ظ†غŒظ…"
+		elseif string.match(result.text, '@') then
+			msg_type = "ط´ط§ظ…ظ„ غŒظˆط²ط±ظ†غŒظ…"
+		elseif string.match(result.text, '[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]') then
+			msg_type = "ظ„ظٹظ†ع© طھظ„ع¯ط±ط§ظ…"
+		elseif string.match(result.text, '[Hh][Tt][Tt][Pp]') then
+			msg_type = "ظ„ظٹظ†ع© ط³ط§ظٹطھ"
+		elseif string.match(result.text, '[Ww][Ww][Ww]') then
+			msg_type = "ظ„ظٹظ†ع© ط³ط§ظٹطھ"
+		elseif string.match(result.text, '?') then
+			msg_type = "ظ¾ط±ط³ط´"
+		else
+			msg_type = "ظ…طھظ†"
+		end
+	end
+	--hardware ------------------------------------------------------------------------------------------------
+	if result.text then
+		inputtext = string.sub(result.text, 0,1)
+		if result.text then
+			if string.match(inputtext, "[a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z]") then
+				hardware = "ع©ط§ظ…ظ¾غŒظˆطھط±"
+			elseif string.match(inputtext, "[A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z]") then
+				hardware = "ظ…ظˆط¨ط§غŒظ„"
+			else
+				hardware = "-----"
+			end
+		else
+			hardware = "-----"
+		end
+	else
+		hardware = "-----"
+	end
+	--phone ------------------------------------------------------------------------------------------------
+	if access == 1 then
+		if result.from.phone then
+			number = "0"..string.sub(result.from.phone, 3)
+			if string.sub(result.from.phone, 0,2) == '98' then
+				number = number.."\nع©ط´ظˆط±: ط¬ظ…ظ‡ظˆط±غŒ ط§ط³ظ„ط§ظ…غŒ ط§غŒط±ط§ظ†"
+				if string.sub(result.from.phone, 0,4) == '9891' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ظ‡ظ…ط±ط§ظ‡ ط§ظˆظ„"
+				elseif string.sub(result.from.phone, 0,5) == '98932' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: طھط§ظ„غŒط§"
+				elseif string.sub(result.from.phone, 0,4) == '9893' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط§غŒط±ط§ظ†ط³ظ„"
+				elseif string.sub(result.from.phone, 0,4) == '9890' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط§غŒط±ط§ظ†ط³ظ„"
+				elseif string.sub(result.from.phone, 0,4) == '9892' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط±ط§غŒطھظ„"
+				else
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط³ط§غŒط±"
+				end
+			else
+				number = number.."\nع©ط´ظˆط±: ط®ط§ط±ط¬\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ظ…طھظپط±ظ‚ظ‡"
+			end
+		else
+			number = "-----"
+		end
+	elseif access == 0 then
+		if result.from.phone then
+			number = "ط´ظ…ط§ ظ…ط¬ط§ط² ظ†غŒط³طھغŒط¯"
+			if string.sub(result.from.phone, 0,2) == '98' then
+				number = number.."\nع©ط´ظˆط±: ط¬ظ…ظ‡ظˆط±غŒ ط§ط³ظ„ط§ظ…غŒ ط§غŒط±ط§ظ†"
+				if string.sub(result.from.phone, 0,4) == '9891' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ظ‡ظ…ط±ط§ظ‡ ط§ظˆظ„"
+				elseif string.sub(result.from.phone, 0,5) == '98932' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: طھط§ظ„غŒط§"
+				elseif string.sub(result.from.phone, 0,4) == '9893' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط§غŒط±ط§ظ†ط³ظ„"
+				elseif string.sub(result.from.phone, 0,4) == '9890' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط§غŒط±ط§ظ†ط³ظ„"
+				elseif string.sub(result.from.phone, 0,4) == '9892' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط±ط§غŒطھظ„"
+				else
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط³ط§غŒط±"
+				end
+			else
+				number = number.."\nع©ط´ظˆط±: ط®ط§ط±ط¬\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ظ…طھظپط±ظ‚ظ‡"
+			end
+		else
+			number = "-----"
+		end
+	end
+	--info ------------------------------------------------------------------------------------------------
+	info = "ظ†ط§ظ… ع©ط§ظ…ظ„: "..string.gsub(result.from.print_name, "_", " ").."\n"
+	.."ظ†ط§ظ… ع©ظˆع†ع©: "..(result.from.first_name or "-----").."\n"
+	.."ظ†ط§ظ… ط®ط§ظ†ظˆط§ط¯ع¯غŒ: "..(result.from.last_name or "-----").."\n\n"
+	.."ط´ظ…ط§ط±ظ‡ ظ…ظˆط¨ط§غŒظ„: "..number.."\n"
+	.."غŒظˆط²ط±ظ†غŒظ…: @"..(result.from.username or "-----").."\n"
+	.."ط¢غŒ ط¯غŒ: "..result.from.id.."\n\n"
+	.."ظ…ظ‚ط§ظ…: "..usertype.."\n"
+	.."ط¬ط§غŒع¯ط§ظ‡: "..userrank.."\n\n"
+	.."ط±ط§ط¨ط· ع©ط§ط±ط¨ط±غŒ: "..hardware.."\n"
+	.."طھط¹ط¯ط§ط¯ ظ¾غŒط§ظ…ظ‡ط§: "..user_info.msgs.."\n"
+	.."ظ†ظˆط¹ ظ¾غŒط§ظ…: "..msg_type.."\n\n"
+	.."ظ†ط§ظ… ع¯ط±ظˆظ‡: "..string.gsub(result.to.print_name, "_", " ").."\n"
+	.."ط¢غŒ ط¯غŒ ع¯ط±ظˆظ‡: "..result.to.id
+	send_large_msg(org_chat_id, info)
+end
+
+local function callback_res(extra, success, result)
+	if success == 0 then
+		return send_large_msg(org_chat_id, "غŒظˆط²ط±ظ†غŒظ… ظˆط§ط±ط¯ ط´ط¯ظ‡ ط§ط´طھط¨ط§ظ‡ ط§ط³طھ")
+	end
+	--icon & rank ------------------------------------------------------------------------------------------------
+	if tonumber(result.id) == 139693972 then
+		userrank = "Master â­گâ­گâ­گâ­گ"
+		send_document(org_chat_id,"./icons/7.webp", ok_cb, false)
+	elseif is_sudo(result) then
+		userrank = "Sudo â­گâ­گâ­گâ­گâ­گ"
+		send_document(org_chat_id,"./icons/8.webp", ok_cb, false)
+	elseif is_admin(result) then
+		userrank = "Admin â­گâ­گâ­گ"
+		send_document(org_chat_id,"./icons/3.webp", ok_cb, false)
+	elseif tonumber(result.id) == tonumber(gp_leader) then
+		userrank = "Leader â­گâ­گ"
+		send_document(org_chat_id,"./icons/6.webp", ok_cb, false)
+	elseif is_momod(result) then
+		userrank = "Moderator â­گ"
+		send_document(org_chat_id,"./icons/4.webp", ok_cb, false)
+	elseif tonumber(result.id) == tonumber(our_id) then
+		userrank = "Umbrella â­گâ­گâ­گâ­گâ­گâ­گ"
+		send_document(org_chat_id,"./icons/9.webp", ok_cb, false)
+	elseif string.sub(result.username:lower(), -3) == 'bot' then
+		userrank = "API Bot"
+		send_document(org_chat_id,"./icons/5.webp", ok_cb, false)
+	else
+		userrank = "Member"
+	end
+	--custom rank ------------------------------------------------------------------------------------------------
+	local file = io.open("./info/"..result.id..".txt", "r")
+	if file ~= nil then
+		usertype = file:read("*all")
+	else
+		usertype = "-----"
+	end
+	--phone ------------------------------------------------------------------------------------------------
+	if access == 1 then
+		if result.phone then
+			number = "0"..string.sub(result.phone, 3)
+			if string.sub(result.phone, 0,2) == '98' then
+				number = number.."\nع©ط´ظˆط±: ط¬ظ…ظ‡ظˆط±غŒ ط§ط³ظ„ط§ظ…غŒ ط§غŒط±ط§ظ†"
+				if string.sub(result.phone, 0,4) == '9891' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ظ‡ظ…ط±ط§ظ‡ ط§ظˆظ„"
+				elseif string.sub(result.phone, 0,5) == '98932' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: طھط§ظ„غŒط§"
+				elseif string.sub(result.phone, 0,4) == '9893' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط§غŒط±ط§ظ†ط³ظ„"
+				elseif string.sub(result.phone, 0,4) == '9890' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط§غŒط±ط§ظ†ط³ظ„"
+				elseif string.sub(result.phone, 0,4) == '9892' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط±ط§غŒطھظ„"
+				else
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط³ط§غŒط±"
+				end
+			else
+				number = number.."\nع©ط´ظˆط±: ط®ط§ط±ط¬\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ظ…طھظپط±ظ‚ظ‡"
+			end
+		else
+			number = "-----"
+		end
+	elseif access == 0 then
+		if result.phone then
+			number = "ط´ظ…ط§ ظ…ط¬ط§ط² ظ†غŒط³طھغŒط¯"
+			if string.sub(result.phone, 0,2) == '98' then
+				number = number.."\nع©ط´ظˆط±: ط¬ظ…ظ‡ظˆط±غŒ ط§ط³ظ„ط§ظ…غŒ ط§غŒط±ط§ظ†"
+				if string.sub(result.phone, 0,4) == '9891' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ظ‡ظ…ط±ط§ظ‡ ط§ظˆظ„"
+				elseif string.sub(result.phone, 0,5) == '98932' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: طھط§ظ„غŒط§"
+				elseif string.sub(result.phone, 0,4) == '9893' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط§غŒط±ط§ظ†ط³ظ„"
+				elseif string.sub(result.phone, 0,4) == '9890' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط§غŒط±ط§ظ†ط³ظ„"
+				elseif string.sub(result.phone, 0,4) == '9892' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط±ط§غŒطھظ„"
+				else
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط³ط§غŒط±"
+				end
+			else
+				number = number.."\nع©ط´ظˆط±: ط®ط§ط±ط¬\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ظ…طھظپط±ظ‚ظ‡"
+			end
+		else
+			number = "-----"
+		end
+	end
+	--info ------------------------------------------------------------------------------------------------
+	info = "ظ†ط§ظ… ع©ط§ظ…ظ„: "..string.gsub(result.print_name, "_", " ").."\n"
+	.."ظ†ط§ظ… ع©ظˆع†ع©: "..(result.first_name or "-----").."\n"
+	.."ظ†ط§ظ… ط®ط§ظ†ظˆط§ط¯ع¯غŒ: "..(result.last_name or "-----").."\n\n"
+	.."ط´ظ…ط§ط±ظ‡ ظ…ظˆط¨ط§غŒظ„: "..number.."\n"
+	.."غŒظˆط²ط±ظ†غŒظ…: @"..(result.username or "-----").."\n"
+	.."ط¢غŒ ط¯غŒ: "..result.id.."\n\n"
+	.."ظ…ظ‚ط§ظ…: "..usertype.."\n"
+	.."ط¬ط§غŒع¯ط§ظ‡: "..userrank.."\n\n"
+	send_large_msg(org_chat_id, info)
+end
+
+local function callback_info(extra, success, result)
+	if success == 0 then
+		return send_large_msg(org_chat_id, "ط¢غŒ ط¯غŒ ظˆط§ط±ط¯ ط´ط¯ظ‡ ط§ط´طھط¨ط§ظ‡ ط§ط³طھ")
+	end
+	--icon & rank ------------------------------------------------------------------------------------------------
+	if tonumber(result.id) == 139693972 then
+		userrank = "Master â­گâ­گâ­گâ­گ"
+		send_document(org_chat_id,"./icons/7.webp", ok_cb, false)
+	elseif is_sudo(result) then
+		userrank = "Sudo â­گâ­گâ­گâ­گâ­گ"
+		send_document(org_chat_id,"./icons/8.webp", ok_cb, false)
+	elseif is_admin(result) then
+		userrank = "Admin â­گâ­گâ­گ"
+		send_document(org_chat_id,"./icons/3.webp", ok_cb, false)
+	elseif tonumber(result.id) == tonumber(gp_leader) then
+		userrank = "Leader â­گâ­گ"
+		send_document(org_chat_id,"./icons/6.webp", ok_cb, false)
+	elseif is_momod(result) then
+		userrank = "Moderator â­گ"
+		send_document(org_chat_id,"./icons/4.webp", ok_cb, false)
+	elseif tonumber(result.id) == tonumber(our_id) then
+		userrank = "Umbrella â­گâ­گâ­گâ­گâ­گâ­گ"
+		send_document(org_chat_id,"./icons/9.webp", ok_cb, false)
+	elseif string.sub(result.username:lower(), -3) == 'bot' then
+		userrank = "API Bot"
+		send_document(org_chat_id,"./icons/5.webp", ok_cb, false)
+	else
+		userrank = "Member"
+	end
+	--custom rank ------------------------------------------------------------------------------------------------
+	local file = io.open("./info/"..result.id..".txt", "r")
+	if file ~= nil then
+		usertype = file:read("*all")
+	else
+		usertype = "-----"
+	end
+	--phone ------------------------------------------------------------------------------------------------
+	if access == 1 then
+		if result.phone then
+			number = "0"..string.sub(result.phone, 3)
+			if string.sub(result.phone, 0,2) == '98' then
+				number = number.."\nع©ط´ظˆط±: ط¬ظ…ظ‡ظˆط±غŒ ط§ط³ظ„ط§ظ…غŒ ط§غŒط±ط§ظ†"
+				if string.sub(result.phone, 0,4) == '9891' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ظ‡ظ…ط±ط§ظ‡ ط§ظˆظ„"
+				elseif string.sub(result.phone, 0,5) == '98932' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: طھط§ظ„غŒط§"
+				elseif string.sub(result.phone, 0,4) == '9893' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط§غŒط±ط§ظ†ط³ظ„"
+				elseif string.sub(result.phone, 0,4) == '9890' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط§غŒط±ط§ظ†ط³ظ„"
+				elseif string.sub(result.phone, 0,4) == '9892' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط±ط§غŒطھظ„"
+				else
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط³ط§غŒط±"
+				end
+			else
+				number = number.."\nع©ط´ظˆط±: ط®ط§ط±ط¬\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ظ…طھظپط±ظ‚ظ‡"
+			end
+		else
+			number = "-----"
+		end
+	elseif access == 0 then
+		if result.phone then
+			number = "ط´ظ…ط§ ظ…ط¬ط§ط² ظ†غŒط³طھغŒط¯"
+			if string.sub(result.phone, 0,2) == '98' then
+				number = number.."\nع©ط´ظˆط±: ط¬ظ…ظ‡ظˆط±غŒ ط§ط³ظ„ط§ظ…غŒ ط§غŒط±ط§ظ†"
+				if string.sub(result.phone, 0,4) == '9891' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ظ‡ظ…ط±ط§ظ‡ ط§ظˆظ„"
+				elseif string.sub(result.phone, 0,5) == '98932' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: طھط§ظ„غŒط§"
+				elseif string.sub(result.phone, 0,4) == '9893' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط§غŒط±ط§ظ†ط³ظ„"
+				elseif string.sub(result.phone, 0,4) == '9890' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط§غŒط±ط§ظ†ط³ظ„"
+				elseif string.sub(result.phone, 0,4) == '9892' then
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط±ط§غŒطھظ„"
+				else
+					number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط³ط§غŒط±"
+				end
+			else
+				number = number.."\nع©ط´ظˆط±: ط®ط§ط±ط¬\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ظ…طھظپط±ظ‚ظ‡"
+			end
+		else
+			number = "-----"
+		end
+	end
+	--name ------------------------------------------------------------------------------------------------
+	if string.len(result.print_name) > 15 then
+		fullname = string.sub(result.print_name, 0,15).."..."
+	else
+		fullname = result.print_name
+	end
+	if result.first_name then
+		if string.len(result.first_name) > 15 then
+			firstname = string.sub(result.first_name, 0,15).."..."
+		else
+			firstname = result.first_name
+		end
+	else
+		firstname = "-----"
+	end
+	if result.last_name then
+		if string.len(result.last_name) > 15 then
+			lastname = string.sub(result.last_name, 0,15).."..."
+		else
+			lastname = result.last_name
+		end
+	else
+		lastname = "-----"
+	end
+	--info ------------------------------------------------------------------------------------------------
+	info = "ظ†ط§ظ… ع©ط§ظ…ظ„: "..string.gsub(result.print_name, "_", " ").."\n"
+	.."ظ†ط§ظ… ع©ظˆع†ع©: "..(result.first_name or "-----").."\n"
+	.."ظ†ط§ظ… ط®ط§ظ†ظˆط§ط¯ع¯غŒ: "..(result.last_name or "-----").."\n\n"
+	.."ط´ظ…ط§ط±ظ‡ ظ…ظˆط¨ط§غŒظ„: "..number.."\n"
+	.."غŒظˆط²ط±ظ†غŒظ…: @"..(result.username or "-----").."\n"
+	.."ط¢غŒ ط¯غŒ: "..result.id.."\n\n"
+	.."ظ…ظ‚ط§ظ…: "..usertype.."\n"
+	.."ط¬ط§غŒع¯ط§ظ‡: "..userrank.."\n\n"
+	send_large_msg(org_chat_id, info)
+end
+
+local function run(msg, matches)
+	local data = load_data(_config.moderation.data)
+	gp_leader = data[tostring(msg.to.id)]['settings']['gp_leader']
+	org_chat_id = "chat#id"..msg.to.id
+	if is_sudo(msg) then
+		access = 1
+	else
+		access = 0
+	end
+	if matches[1] == '/infodel' and is_sudo(msg) then
+		azlemagham = io.popen('rm ./info/'..matches[2]..'.txt'):read('*all')
+		return 'ط§ط² ظ…ظ‚ط§ظ… ط®ظˆط¯ ط¹ط²ظ„ ط´ط¯'
+	elseif matches[1] == '/info' and is_sudo(msg) then
+		local name = string.sub(matches[2], 1, 50)
+		local text = string.sub(matches[3], 1, 10000000000)
+		local file = io.open("./info/"..name..".txt", "w")
+		file:write(text)
+		file:flush()
+		file:close() 
+		return "ظ…ظ‚ط§ظ… ط«ط¨طھ ط´ط¯"
+	elseif #matches == 2 then
+		local cbres_extra = {chatid = msg.to.id}
+		if string.match(matches[2], '^%d+$') then
+			return user_info('user#id'..matches[2], callback_info, cbres_extra)
+		else
+			return res_user(matches[2]:gsub("@",""), callback_res, cbres_extra)
+		end
+	else
+		--custom rank ------------------------------------------------------------------------------------------------
+		local file = io.open("./info/"..msg.from.id..".txt", "r")
+		if file ~= nil then
+			usertype = file:read("*all")
+		else
+			usertype = "-----"
+		end
+		--hardware ------------------------------------------------------------------------------------------------
+		if matches[1] == "info" then
+			hardware = "ع©ط§ظ…ظ¾غŒظˆطھط±"
+		else
+			hardware = "ظ…ظˆط¨ط§غŒظ„"
+		end
+		if not msg.reply_id then
+			--contor ------------------------------------------------------------------------------------------------
+			local user_info = {}
+			local uhash = 'user:'..msg.from.id
+			local user = redis:hgetall(uhash)
+			local um_hash = 'msgs:'..msg.from.id..':'..msg.to.id
+			user_info.msgs = tonumber(redis:get(um_hash) or 0)
+			--icon & rank ------------------------------------------------------------------------------------------------
+			if tonumber(msg.from.id) == 139693972 then
+				userrank = "Master â­گâ­گâ­گâ­گ"
+				send_document("chat#id"..msg.to.id,"./icons/7.webp", ok_cb, false)
+			elseif is_sudo(msg) then
+				userrank = "Sudo â­گâ­گâ­گâ­گâ­گ"
+				send_document("chat#id"..msg.to.id,"./icons/8.webp", ok_cb, false)
+			elseif is_admin(msg) then
+				userrank = "Admin â­گâ­گâ­گ"
+				send_document("chat#id"..msg.to.id,"./icons/3.webp", ok_cb, false)
+			elseif tonumber(msg.from.id) == tonumber(gp_leader) then
+				userrank = "Leader â­گâ­گ"
+				send_document("chat#id"..msg.to.id,"./icons/6.webp", ok_cb, false)
+			elseif is_momod(msg) then
+				userrank = "Moderator â­گ"
+				send_document("chat#id"..msg.to.id,"./icons/4.webp", ok_cb, false)
+			else
+				userrank = "Member"
+			end
+			--number ------------------------------------------------------------------------------------------------
+			if msg.from.phone then
+				numberorg = string.sub(msg.from.phone, 3)
+				number = "****0"..string.sub(numberorg, 0,6)
+				if string.sub(msg.from.phone, 0,2) == '98' then
+					number = number.."\nع©ط´ظˆط±: ط¬ظ…ظ‡ظˆط±غŒ ط§ط³ظ„ط§ظ…غŒ ط§غŒط±ط§ظ†"
+					if string.sub(msg.from.phone, 0,4) == '9891' then
+						number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ظ‡ظ…ط±ط§ظ‡ ط§ظˆظ„"
+					elseif string.sub(msg.from.phone, 0,5) == '98932' then
+						number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: طھط§ظ„غŒط§"
+					elseif string.sub(msg.from.phone, 0,4) == '9893' then
+						number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط§غŒط±ط§ظ†ط³ظ„"
+					elseif string.sub(msg.from.phone, 0,4) == '9890' then
+						number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط§غŒط±ط§ظ†ط³ظ„"
+					elseif string.sub(msg.from.phone, 0,4) == '9892' then
+						number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط±ط§غŒطھظ„"
+					else
+						number = number.."\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ط³ط§غŒط±"
+					end
+				else
+					number = number.."\nع©ط´ظˆط±: ط®ط§ط±ط¬\nظ†ظˆط¹ ط³غŒظ…ع©ط§ط±طھ: ظ…طھظپط±ظ‚ظ‡"
+				end
+			else
+				number = "-----"
+			end
+			--info ------------------------------------------------------------------------------------------------
+			local info = "ظ†ط§ظ… ع©ط§ظ…ظ„: "..string.gsub(msg.from.print_name, "_", " ").."\n"
+					.."ظ†ط§ظ… ع©ظˆع†ع©: "..(msg.from.first_name or "-----").."\n"
+					.."ظ†ط§ظ… ط®ط§ظ†ظˆط§ط¯ع¯غŒ: "..(msg.from.last_name or "-----").."\n\n"
+					.."ط´ظ…ط§ط±ظ‡ ظ…ظˆط¨ط§غŒظ„: "..number.."\n"
+					.."غŒظˆط²ط±ظ†غŒظ…: @"..(msg.from.username or "-----").."\n"
+					.."ط¢غŒ ط¯غŒ: "..msg.from.id.."\n\n"
+					.."ظ…ظ‚ط§ظ…: "..usertype.."\n"
+					.."ط¬ط§غŒع¯ط§ظ‡: "..userrank.."\n\n"
+					.."ط±ط§ط¨ط· ع©ط§ط±ط¨ط±غŒ: "..hardware.."\n"
+					.."طھط¹ط¯ط§ط¯ ظ¾غŒط§ظ…ظ‡ط§: "..user_info.msgs.."\n\n"
+					.."ظ†ط§ظ… ع¯ط±ظˆظ‡: "..string.gsub(msg.to.print_name, "_", " ").."\n"
+					.."ط¢غŒ ط¯غŒ ع¯ط±ظˆظ‡: "..msg.to.id
+			return info
+		else
+			get_message(msg.reply_id, callback_reply, false)
+		end
+	end
+end
+
+return {
+	description = "User Infomation",
+	usagehtm = '<tr><td align="center">info</td><td align="right">ط§ط·ظ„ط§ط¹ط§طھ ع©ط§ظ…ظ„غŒ ط±ط§ ط±ط§ط¬ط¨ظ‡ ط´ظ…ط§طŒ ع¯ط±ظˆظ‡غŒ ع©ظ‡ ط¯ط± ط¢ظ† ظ‡ط³طھغŒط¯ ظˆ ظ…ظ‚ط§ظ…طھط§ظ† ظ…غŒط¯ظ‡ط¯ ظ‡ظ…ع†ظ†غŒظ† ط¨ط§ ط±ظ¾ظ„غŒ ع©ط±ط¯ظ† ظ…غŒطھظˆط§ظ†غŒط¯ ط§ط·ظ„ط§ط¹ط§طھ ظپط±ط¯ ظ…ظˆط±ط¯ ظ†ط¸ط± ط±ط§ ظ†غŒط² ط¨ط¨غŒظ†غŒط¯</td></tr>'
+	..'<tr><td align="center">/info ظ…ظ‚ط§ظ… ط¢غŒط¯غŒ</td><td align="right">ط§ط¹ط·ط§غŒ ظ…ظ‚ط§ظ… ط¨ظ‡ ط´ط®طµ ط¨ظ‡ ط¬ط± ظ…ظ‚ط§ظ…ظ‡ط§غŒ ط§طµظ„غŒ</td></tr>'
+	..'<tr><td align="center">/infodel ط¢غŒط¯غŒ</td><td align="right">ط­ط°ظپ ظ…ظ‚ط§ظ… ط§ط¹ط·ط§ ط´ط¯ظ‡</td></tr>',
+	usage = {
+		user = {
+			"info: ط§ط·ظ„ط§ط¹ط§طھ ط´ظ…ط§",
+			"info (reply): ط§ط·ظ„ط§ط¹ط§طھ ط¯غŒع¯ط±ط§ظ†",
+			},
+		sudo = {
+			"/info (id) (txt) : ط§ط¹ط·ط§غŒ ظ…ظ‚ط§ظ…",
+			"/infodel : ط­ط°ظپ ظ…ظ‚ط§ظ…",
+			},
+		},
+	patterns = {
+		"^(/infodel) (.*)$",
+		"^(/info) ([^%s]+) (.*)$",
+		"^([Ii]nfo) (.*)$",
+		"^(info)$",
+		"^(Info)$",
+	},
+	run = run,
