@@ -1,5 +1,5 @@
 do
-local SUDO = 207418094 --put your id here(BOT OWNER ID)
+local SUDO = 211752618 --put your id here(BOT OWNER ID)
 
 local function setrank(msg, name, value) -- setrank function
   local hash = nil
