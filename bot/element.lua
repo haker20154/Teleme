@@ -265,7 +265,7 @@ function create_config( )
     },
     sudo_users = {211752618},--Sudo users
     moderation = {data = 'data/moderation.json'},
-    about_text = [[😎 TeleѦgent 😎
+    about_text = [[😎 SpaceTg 😎
 
 💠An advence Telegram Bot Based On Lua And Dev By NOBLEST💠
 
@@ -333,7 +333,7 @@ This command will send text to [group_id]
 *Only admins and sudo can use kick,ban,unban,newlink,setphoto,setname,lock,unlock,set rules,set about and settings commands
 *Only admins and sudo can use res, setowner, commands
 〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰	
-📍]],
+🔻]],
 	help_text_super =[[
 Commands list :
 
