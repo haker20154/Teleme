@@ -3,13 +3,7 @@ do
 function run(msg, matches)
 local reply_id = msg['id']
 
-local info = '~This Is Your & Gp Info !\n~Your Name: -> '..msg.from.first_name..'\n'
-..'~Your Id : -> '..msg.from.id..'\n'
-..'~Your Username : -> @'..msg.from.username..'\n'
-..'~Group Id : -> '..msg.to.id..'\n'
-..'~Group name : -> '..msg.to.title..'\n'
-..'~Your Special Link : -> https://telegram.me/'..msg.from.username..'\n'
-..'~Your Phone : +'..msg.from.phone
+local info = #شناسه گروه : "..msg.from.id.."\n#نام گروه : "..msg.to.title.."\n#نام شما : "..(msg.from.first_name or '').."\n#نام اول : "..(msg.from.first_name or '').."\n#نام آخر : "..(msg.from.last_name or '').."\n#آیدی : "..msg.from.id.."\n#یوزرنیم : @"..(msg.from.username or '').."\n#شماره تلفن : +"..(msg.from.phone or '')
 
 reply_msg(reply_id, info, ok_cb, false)
 end
