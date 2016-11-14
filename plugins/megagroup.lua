@@ -5,7 +5,7 @@ local function check_member_super(cb_extra, success, result)
   local data = cb_extra.data
   local msg = cb_extra.msg
   if success == 0 then
-	send_large_msg(receiver, "Promote me to admin first!")
+	send_large_msg(receiver, "ابتدا مرا ادمين كنيد")
   end
   for k,v in pairs(result) do
     local member_id = v.peer_id
@@ -1033,7 +1033,7 @@ function show_supergroup_settingsmod(msg, target)
   local gp_type = data[tostring(msg.to.id)]['group_type']
   
   local settings = data[tostring(target)]['settings']
-  local text = "~~~~~~~~~~~~~~~~~~~~\n🔧 Supergroup settings ⬇\n~~~~~~~~~~~~~~~~~~~~\n▫Lock #links : "..settings.lock_link.."\n⚪Lock #contacts: ["..settings.lock_contacts.."]\n▫Lock #flood: ["..settings.flood.."]\n⚪Flood #sensitivity : ["..NUM_MSG_MAX.."]\n▫Lock #spam: ["..settings.lock_spam.."]\n⚪Lock #Arabic: ["..settings.lock_arabic.."]\n▫Lock #Member: ["..settings.lock_member.."]\n⚪Lock #RTL: ["..settings.lock_rtl.."]\n▫Lock #Tgservice: ["..settings.lock_tgservice.."]\n⚪Lock #sticker: ["..settings.lock_sticker.."]\n▫Lock #tag(#): ["..settings.tag.."]\n⚪Lock #emoji: ["..settings.emoji.."]\n▫Lock #english: ["..settings.english.."]\n⚪Lock #fwd(forward): ["..settings.fwd.."]\n▫Lock #reply: ["..settings.reply.."]\n⚪Lock #join: ["..settings.join.."]\n▫Lock #username(@): ["..settings.username.."]\n⚪Lock #media: ["..settings.media.."]\n▫Lock #fosh: ["..settings.fosh.."]\n⚪Lock #leave: ["..settings.leave.."]\n▫Lock #bots: ["..bots_protection.."]\n⚪Lock #operator: ["..settings.operator.."]\n▫Lock #Etehad: ["..settings.etehad.."]\n⚪Lock #All: ["..settings.all.."]\n ~~~~~~~~~~~~~~~~~~~~\n👥 Group Information ⬇\n~~~~~~~~~~~~~~~~~~~~\n 🔺Group #Type: "..gp_type.."\n🔻Group #Version : 3.2\n🔺Group #Public: ["..settings.public.."]\n🔻Strict #settings: ["..settings.strict.."]\n🔺Group #Name : ["..msg.to.print_name.."]\n🔻Group #ID : ["..msg.to.id.."]\n~~~~~~~~~~~~~~~~~~~~\n👤Requester Information ⬇\n~~~~~~~~~~~~~~~~~~~~\n🎴Requester #Username : "..msg.from.username.."\n🎴Requester #Id : "..msg.from.id.."\n🎴Requester #Name : "..msg.from.print_name.."\n~~~~~~~~~~~~~~~~~~~~\n👾Bot Information ⬇\n~~~~~~~~~~~~~~~~~~~~\n🔸Bot Version : 3.2\n🔸Bot Cretor : @Allwen\n🔸Settings Writer : @Allwen"
+  local text = "~~~~~~~~~~~~~~~~~~~~\n🔧 Supergroup settings ⬇\n~~~~~~~~~~~~~~~~~~~~\n▫Lock #links : "..settings.lock_link.."\n⚪Lock #contacts: ["..settings.lock_contacts.."]\n▫Lock #flood: ["..settings.flood.."]\n⚪Flood #sensitivity : ["..NUM_MSG_MAX.."]\n▫Lock #spam: ["..settings.lock_spam.."]\n⚪Lock #Arabic: ["..settings.lock_arabic.."]\n▫Lock #Member: ["..settings.lock_member.."]\n⚪Lock #RTL: ["..settings.lock_rtl.."]\n▫Lock #Tgservice: ["..settings.lock_tgservice.."]\n⚪Lock #sticker: ["..settings.lock_sticker.."]\n▫Lock #tag(#): ["..settings.tag.."]\n⚪Lock #emoji: ["..settings.emoji.."]\n▫Lock #english: ["..settings.english.."]\n⚪Lock #fwd(forward): ["..settings.fwd.."]\n▫Lock #reply: ["..settings.reply.."]\n⚪Lock #join: ["..settings.join.."]\n▫Lock #username(@): ["..settings.username.."]\n⚪Lock #media: ["..settings.media.."]\n▫Lock #fosh: ["..settings.fosh.."]\n⚪Lock #leave: ["..settings.leave.."]\n▫Lock #bots: ["..bots_protection.."]\n⚪Lock #operator: ["..settings.operator.."]\n▫Lock #Etehad: ["..settings.etehad.."]\n⚪Lock #All: ["..settings.all.."]\n ~~~~~~~~~~~~~~~~~~~~\n👥 Group Information ⬇\n~~~~~~~~~~~~~~~~~~~~\n 🔺Group #Type: "..gp_type.."\n🔻Group #Version : 3.2\n🔺Group #Public: ["..settings.public.."]\n🔻Strict #settings: ["..settings.strict.."]\n🔺Group #Name : ["..msg.to.print_name.."]\n🔻Group #ID : ["..msg.to.id.."]\n~~~~~~~~~~~~~~~~~~~~\n👤Requester Information ⬇\n~~~~~~~~~~~~~~~~~~~~\n🎴Requester #Username : "..msg.from.username.."\n🎴Requester #Id : "..msg.from.id.."\n🎴Requester #Name : "..msg.from.print_name.."\n~~~~~~~~~~~~~~~~~~~~\n👾Bot Information ⬇\n~~~~~~~~~~~~~~~~~~~~\n🔸Bot Version : 3.2\n🔸Bot Cretor : @boy_virtual\n🔸Settings Writer : boy_virtual"
   return text
 end
 
@@ -2628,12 +2628,125 @@ local function run(msg, matches)
 		end
 
 		if matches[1] == 'help' and not is_owner(msg) then
-			text = "Send /superhelp in private @Agent_lua Or wait for group owner"
+			text = "Send /superhelp in private @SpaceTg Or wait for group owner"
 			reply_msg(msg.id, text, ok_cb, false)
 		elseif matches[1] == 'help' and is_owner(msg) then
 			local name_log = user_print_name(msg.from)
 			savelog(msg.to.id, name_log.." ["..msg.from.id.."] Used /superhelp")
-			return super_help()
+			return super_help(Commands list :
+
+!kick [username|id]
+🔵 اخراج شخص از گروه 🔴
+〰〰〰〰〰〰〰〰
+!ban [ username|id]
+🔵 مسدود کردن شخص از گروه 🔴
+〰〰〰〰〰〰〰〰
+!unban [id]
+🔵 خارج کردن فرد از لیست مسدودها 🔴
+〰〰〰〰〰〰〰〰
+!who
+🔵 لیست اعضای گروه 🔴
+〰〰〰〰〰〰〰〰
+!modlist
+🔵 لیست مدیران 🔴
+〰〰〰〰〰〰〰〰
+!promote [username]
+🔵 افزودن شخص به لیست مدیران 🔴
+〰〰〰〰〰〰〰〰
+!demote [username]
+🔵 خارج کردن شخص از لیست مدیران 🔴
+〰〰〰〰〰〰〰〰
+!kickme
+🔵 اخراج خود از گروه 🔴
+〰〰〰〰〰〰〰〰
+!about
+🔵 دریافت متن گروه 🔴
+〰〰〰〰〰〰〰〰
+!setphoto
+🔵 عوض کردن عکس گروه 🔴
+〰〰〰〰〰〰〰〰
+!setname [name]
+🔵 عوض کردن اسم گروه 🔴
+〰〰〰〰〰〰〰〰
+!rules
+🔵 دریافت قوانین گروه 🔴
+〰〰〰〰〰〰〰〰
+!id
+🔵 دریافت آیدی گروه یا شخص 🔴
+〰〰〰〰〰〰〰〰
+!help
+🔵 دریافت لیست دستورات 🔴
+〰〰〰〰〰〰〰〰
+!lock [links|flood|spam|Arabic|member|rtl|sticker|contacts|strict]
+🔵 قفل کردن تنظیمات 🔴
+〰〰〰〰〰〰〰〰
+!unlock [links|flood|spam|Arabic|member|rtl|sticker|contacts|strict]
+🔵 بازکردن قفل تنظیمات گروه 🔴
+〰〰〰〰〰〰〰〰
+!mute [all|audio|gifs|photo|video]
+🔵 بیصدا کردن فرمت ها 🔴
+〰〰〰〰〰〰〰〰
+!unmute [all|audio|gifs|photo|video]
+🔵 از حالت بیصدا درآوردن فرمت ها 🔴
+〰〰〰〰〰〰〰〰
+!set rules <text>
+🔵 تنظیم قوانین برای گروه 🔴
+〰〰〰〰〰〰〰〰
+!set about <text>
+🔵 تنظیم متن درباره ی گروه 🔴
+〰〰〰〰〰〰〰〰
+!settings
+🔵 مشاهده تنظیمات گروه 🔴
+〰〰〰〰〰〰〰〰
+!muteslist
+🔵 لیست فرمت های بیصدا 🔴
+〰〰〰〰〰〰〰〰
+!muteuser [username]
+🔵 بیصدا کردن شخص در گروه 🔴
+〰〰〰〰〰〰〰〰
+!mutelist
+🔵 لیست افراد بیصدا 🔴
+〰〰〰〰〰〰〰〰
+!newlink
+🔵 ساختن لینک جدید 🔴
+〰〰〰〰〰〰〰〰
+!link
+🔵 دریافت لینک گروه 🔴
+〰〰〰〰〰〰〰〰
+!owner
+🔵 مشاهده آیدی صاحب گروه 🔴
+〰〰〰〰〰〰〰〰
+!setowner [id]
+🔵 یک شخص را به عنوان صاحب گروه انتخاب کردن 🔴
+〰〰〰〰〰〰〰〰
+!setflood [value]
+🔵 تنظیم حساسیت اسپم 🔴
+〰〰〰〰〰〰〰〰
+!stats
+🔵 مشاهده آمار گروه 🔴
+〰〰〰〰〰〰〰〰
+!save [value] <text>
+🔵 افزودن دستور و پاسخ 🔴
+〰〰〰〰〰〰〰〰
+!get [value]
+🔵 دریافت پاسخ دستور 🔴
+〰〰〰〰〰〰〰〰
+!clean [modlist|rules|about]
+🔵 پاک کردن [مدیران ,قوانین ,متن گروه] 🔴
+〰〰〰〰〰〰〰〰
+!res [username]
+🔵 دریافت آیدی افراد 🔴
+💥 !res @username 💥
+〰〰〰〰〰〰〰〰
+!log
+🔵 لیست ورود اعضا 🔴
+〰〰〰〰〰〰〰〰
+!banlist
+🔵 لیست مسدود شده ها 🔴
+〰〰〰〰〰〰〰〰
+💥 شما میتوانید از / و ! و # استفاده کنید 💥
+@boy_virtual 📌
+@Space_Team 📌)
 		end
 
 		if matches[1] == 'peer_id' and is_admin1(msg)then
