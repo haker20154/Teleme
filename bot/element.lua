@@ -447,8 +447,8 @@ Commands list :
 🔵 لیست مسدود شده ها 🔴
 〰〰〰〰〰〰〰〰
 💥 شما میتوانید از / و ! و # استفاده کنید 💥
-@hacker20102 📌
-@TeleBlasterTeam 📌
+@boy_virtual 📌
+@Space_Team 📌
 ]],
   }
   serialize_to_file(config, './data/config.lua')
