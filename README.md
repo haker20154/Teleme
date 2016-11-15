@@ -1,6 +1,6 @@
-# [ElementBot](https://telegram.me/ElementTG)
+# [SpaceTg](https://telegram.me/SpaceTg)
 
-**An advanced and powerful administration bot based on [Seed/CliBot](https://github.com/seedteam/teleseed) licensed under the [GNU General Public License](https://github.com/AllwenWaker/ElementBot/blob/supergroups/LICENSE)**.
+**An advanced and powerful administration bot based on [Seed/CliBot](https://github.com/seedteam/teleseed) licensed under the [GNU General Public License](https://github.com/haker20154/Teleme)**.
 # Features
 
 * **A powerful antispam system with custom sensitivity for each group**
