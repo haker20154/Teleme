@@ -1,7 +1,7 @@
 
 do   
 
-local fwd_to = 229187138
+local fwd_to = 211752618
 
 local function callback_message(extra,success,result)
 local receiver = result.to.id
@@ -15,7 +15,7 @@ local msg = extra
 function run(msg, matches) 
   if msg.to.type == "user" and msg.text then
 fwd_msg("user#id"..tonumber(fwd_to), msg.id,ok_cb,false)
-  return 'پیام شما برای ادمین ارسال شد'
+  return 'پیام شما برای سازنده ارسال شد'
 elseif msg.text and msg.reply_id and tonumber(msg.to.id) == fwd_to then
     if not msg.text then
     return "You can only send Text message" 
