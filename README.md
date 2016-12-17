@@ -19,7 +19,7 @@
 * **Lock TgService**
 * **Chat list**
 * **And more!**
-*  **ElementBot
+*  **SpaceTeam
 
 
 * * *
